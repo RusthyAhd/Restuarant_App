@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart' hide LinearGradient, Image;
-import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
-import 'package:flutter_samples/samples/ui/rive_app/assets.dart' as app_assets;
+import 'package:flutter_samples/ui/theme.dart';
+import 'package:flutter_samples/ui/assets.dart' as app_assets;
 
 class SignInView extends StatefulWidget {
   const SignInView({Key? key, this.closeModal}) : super(key: key);
@@ -31,16 +31,20 @@ class _SignInViewState extends State<SignInView> {
   }
 
   void _onCheckRiveInit(Artboard artboard) {
-    final controller =
-        StateMachineController.fromArtboard(artboard, "State Machine 1");
+    final controller = StateMachineController.fromArtboard(
+      artboard,
+      "State Machine 1",
+    );
     artboard.addController(controller!);
     _successAnim = controller.findInput<bool>("Check") as SMITrigger;
     _errorAnim = controller.findInput<bool>("Error") as SMITrigger;
   }
 
   void _onConfettiRiveInit(Artboard artboard) {
-    final controller =
-        StateMachineController.fromArtboard(artboard, "State Machine 1");
+    final controller = StateMachineController.fromArtboard(
+      artboard,
+      "State Machine 1",
+    );
     artboard.addController(controller!);
     _confettiAnim =
         controller.findInput<bool>("Trigger explosion") as SMITrigger;
@@ -97,21 +101,24 @@ class _SignInViewState extends State<SignInView> {
                   child: Container(
                     padding: const EdgeInsets.all(29),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                              color: RiveAppTheme.shadow.withOpacity(0.3),
-                              offset: const Offset(0, 3),
-                              blurRadius: 5),
-                          BoxShadow(
-                              color: RiveAppTheme.shadow.withOpacity(0.3),
-                              offset: const Offset(0, 30),
-                              blurRadius: 30)
-                        ],
-                        color: CupertinoColors.secondarySystemBackground,
-                        // This kind of give the background iOS style "Frosted Glass" effect,
-                        // it works for this particular color, might not for other
-                        backgroundBlendMode: BlendMode.luminosity),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: RiveAppTheme.shadow.withOpacity(0.3),
+                          offset: const Offset(0, 3),
+                          blurRadius: 5,
+                        ),
+                        BoxShadow(
+                          color: RiveAppTheme.shadow.withOpacity(0.3),
+                          offset: const Offset(0, 30),
+                          blurRadius: 30,
+                        ),
+                      ],
+                      color: CupertinoColors.secondarySystemBackground,
+                      // This kind of give the background iOS style "Frosted Glass" effect,
+                      // it works for this particular color, might not for other
+                      backgroundBlendMode: BlendMode.luminosity,
+                    ),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -121,21 +128,24 @@ class _SignInViewState extends State<SignInView> {
                         ),
                         const SizedBox(height: 24),
                         const Text(
-                            "Access to 240+ hours of content. Learn design and code, by building real apps with React and Swift.",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontFamily: "Inter",
-                                fontSize: 17,
-                                fontWeight: FontWeight.w600)),
+                          "Access to 240+ hours of content. Learn design and code, by building real apps with React and Swift.",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: "Inter",
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                         const SizedBox(height: 24),
                         const Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
                             "Email",
                             style: TextStyle(
-                                color: CupertinoColors.secondaryLabel,
-                                fontFamily: "Inter",
-                                fontSize: 15),
+                              color: CupertinoColors.secondaryLabel,
+                              fontFamily: "Inter",
+                              fontSize: 15,
+                            ),
                           ),
                         ),
                         const SizedBox(height: 8),
@@ -149,9 +159,10 @@ class _SignInViewState extends State<SignInView> {
                           child: Text(
                             "Password",
                             style: TextStyle(
-                                color: CupertinoColors.secondaryLabel,
-                                fontFamily: "Inter",
-                                fontSize: 15),
+                              color: CupertinoColors.secondaryLabel,
+                              fontFamily: "Inter",
+                              fontSize: 15,
+                            ),
                           ),
                         ),
                         const SizedBox(height: 8),
@@ -168,7 +179,7 @@ class _SignInViewState extends State<SignInView> {
                                 color: const Color(0xFFF77D8E).withOpacity(0.5),
                                 blurRadius: 20,
                                 offset: const Offset(0, 10),
-                              )
+                              ),
                             ],
                           ),
                           child: CupertinoButton(
@@ -188,10 +199,11 @@ class _SignInViewState extends State<SignInView> {
                                 Text(
                                   "Sign In",
                                   style: TextStyle(
-                                      fontSize: 17,
-                                      fontFamily: "Inter",
-                                      fontWeight: FontWeight.bold),
-                                )
+                                    fontSize: 17,
+                                    fontFamily: "Inter",
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ],
                             ),
                             onPressed: () {
@@ -205,32 +217,37 @@ class _SignInViewState extends State<SignInView> {
                             children: [
                               const Expanded(child: Divider()),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                ),
                                 child: Text(
                                   "OR",
                                   style: TextStyle(
-                                      color: Colors.black.withOpacity(0.3),
-                                      fontSize: 15,
-                                      fontFamily: "Inter"),
+                                    color: Colors.black.withOpacity(0.3),
+                                    fontSize: 15,
+                                    fontFamily: "Inter",
+                                  ),
                                 ),
                               ),
                               const Expanded(child: Divider()),
                             ],
                           ),
                         ),
-                        const Text("Sign up with Email, Apple or Google",
-                            style: TextStyle(
-                                color: CupertinoColors.secondaryLabel,
-                                fontFamily: "Inter",
-                                fontSize: 15)),
+                        const Text(
+                          "Sign up with Email, Apple or Google",
+                          style: TextStyle(
+                            color: CupertinoColors.secondaryLabel,
+                            fontFamily: "Inter",
+                            fontSize: 15,
+                          ),
+                        ),
                         const SizedBox(height: 24),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Image.asset(app_assets.logoEmail),
                             Image.asset(app_assets.logoApple),
-                            Image.asset(app_assets.logoGoogle)
+                            Image.asset(app_assets.logoGoogle),
                           ],
                         ),
                       ],
@@ -292,20 +309,17 @@ class _SignInViewState extends State<SignInView> {
                               color: RiveAppTheme.shadow.withOpacity(0.3),
                               blurRadius: 5,
                               offset: const Offset(0, 3),
-                            )
+                            ),
                           ],
                         ),
-                        child: const Icon(
-                          Icons.close,
-                          color: Colors.black,
-                        ),
+                        child: const Icon(Icons.close, color: Colors.black),
                       ),
                       onPressed: () {
                         widget.closeModal!();
                       },
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -318,16 +332,20 @@ class _SignInViewState extends State<SignInView> {
 // Common style for Auth Input fields email and password
 InputDecoration authInputStyle(String iconName) {
   return InputDecoration(
-      filled: true,
-      fillColor: Colors.white,
-      enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.black.withOpacity(0.1))),
-      focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.black.withOpacity(0.1))),
-      contentPadding: const EdgeInsets.all(15),
-      prefixIcon: Padding(
-          padding: const EdgeInsets.only(left: 4),
-          child: Image.asset("assets/samples/ui/rive_app/images/$iconName.png")));
+    filled: true,
+    fillColor: Colors.white,
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: BorderSide(color: Colors.black.withOpacity(0.1)),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: BorderSide(color: Colors.black.withOpacity(0.1)),
+    ),
+    contentPadding: const EdgeInsets.all(15),
+    prefixIcon: Padding(
+      padding: const EdgeInsets.only(left: 4),
+      child: Image.asset("assets/samples/ui/rive_app/images/$iconName.png"),
+    ),
+  );
 }

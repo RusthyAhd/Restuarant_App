@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_samples/samples/ui/rive_app/models/courses.dart';
+import 'package:flutter_samples/ui/models/courses.dart';
 
 class VCard extends StatefulWidget {
   const VCard({Key? key, required this.course}) : super(key: key);
@@ -26,9 +26,10 @@ class _VCardState extends State<VCard> {
       padding: const EdgeInsets.all(30),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-            colors: [widget.course.color, widget.course.color.withOpacity(0.5)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight),
+          colors: [widget.course.color, widget.course.color.withOpacity(0.5)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
         boxShadow: [
           BoxShadow(
             color: widget.course.color.withOpacity(0.3),
@@ -39,7 +40,7 @@ class _VCardState extends State<VCard> {
             color: widget.course.color.withOpacity(0.3),
             blurRadius: 2,
             offset: const Offset(0, 1),
-          )
+          ),
         ],
         borderRadius: BorderRadius.circular(30),
       ),
@@ -54,7 +55,10 @@ class _VCardState extends State<VCard> {
                 child: Text(
                   widget.course.title,
                   style: const TextStyle(
-                      fontSize: 24, fontFamily: "Poppins", color: Colors.white),
+                    fontSize: 24,
+                    fontFamily: "Poppins",
+                    color: Colors.white,
+                  ),
                 ),
               ),
               const SizedBox(height: 8),
@@ -64,16 +68,19 @@ class _VCardState extends State<VCard> {
                 maxLines: 2,
                 softWrap: false,
                 style: TextStyle(
-                    color: Colors.white.withOpacity(0.7), fontSize: 15),
+                  color: Colors.white.withOpacity(0.7),
+                  fontSize: 15,
+                ),
               ),
               const SizedBox(height: 8),
               Text(
                 widget.course.caption.toUpperCase(),
                 style: const TextStyle(
-                    fontSize: 13,
-                    fontFamily: "Inter",
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white),
+                  fontSize: 13,
+                  fontFamily: "Inter",
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
               ),
               const Spacer(),
               Wrap(
@@ -86,17 +93,21 @@ class _VCardState extends State<VCard> {
                       key: Key(index.toString()),
                       borderRadius: BorderRadius.circular(22),
                       child: Image.asset(
-                          "assets/samples/ui/rive_app/images/avatars/avatar_${avatars[index]}.jpg",
-                          width: 44,
-                          height: 44),
+                        "assets/samples/ui/rive_app/images/avatars/avatar_${avatars[index]}.jpg",
+                        width: 44,
+                        height: 44,
+                      ),
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
           Positioned(
-              right: -10, top: -10, child: Image.asset(widget.course.image))
+            right: -10,
+            top: -10,
+            child: Image.asset(widget.course.image),
+          ),
         ],
       ),
     );

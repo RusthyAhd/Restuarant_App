@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
-import 'package:flutter_samples/samples/ui/rive_app/components/menu_row.dart';
-import 'package:flutter_samples/samples/ui/rive_app/models/menu_item.dart';
-import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
-import 'package:flutter_samples/samples/ui/rive_app/assets.dart' as app_assets;
+import 'package:flutter_samples/ui/components/menu_row.dart';
+import 'package:flutter_samples/ui/models/menu_item.dart';
+import 'package:flutter_samples/ui/theme.dart';
+import 'package:flutter_samples/ui/assets.dart' as app_assets;
 
 class SideMenu extends StatefulWidget {
   const SideMenu({Key? key}) : super(key: key);
@@ -22,7 +22,9 @@ class _SideMenuState extends State<SideMenu> {
 
   void onThemeRiveIconInit(artboard) {
     final controller = StateMachineController.fromArtboard(
-        artboard, _themeMenuIcon[0].riveIcon.stateMachine);
+      artboard,
+      _themeMenuIcon[0].riveIcon.stateMachine,
+    );
     artboard.addController(controller!);
     _themeMenuIcon[0].riveIcon.status =
         controller.findInput<bool>("active") as SMIBool;
@@ -45,8 +47,9 @@ class _SideMenuState extends State<SideMenu> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-          top: MediaQuery.of(context).padding.top,
-          bottom: MediaQuery.of(context).padding.bottom - 60),
+        top: MediaQuery.of(context).padding.top,
+        bottom: MediaQuery.of(context).padding.bottom - 60,
+      ),
       constraints: const BoxConstraints(maxWidth: 288),
       decoration: BoxDecoration(
         color: RiveAppTheme.background2,
@@ -72,18 +75,20 @@ class _SideMenuState extends State<SideMenu> {
                     const Text(
                       "Ashu",
                       style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 17,
-                          fontFamily: "Inter"),
+                        color: Colors.white,
+                        fontSize: 17,
+                        fontFamily: "Inter",
+                      ),
                     ),
                     const SizedBox(height: 2),
                     Text(
                       "Software Engineer",
                       style: TextStyle(
-                          color: Colors.white.withOpacity(0.7),
-                          fontSize: 15,
-                          fontFamily: "Inter"),
-                    )
+                        color: Colors.white.withOpacity(0.7),
+                        fontSize: 15,
+                        fontFamily: "Inter",
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -94,15 +99,17 @@ class _SideMenuState extends State<SideMenu> {
               child: Column(
                 children: [
                   MenuButtonSection(
-                      title: "BROWSE",
-                      selectedMenu: _selectedMenu,
-                      menuIcons: _browseMenuIcons,
-                      onMenuPress: onMenuPress),
+                    title: "BROWSE",
+                    selectedMenu: _selectedMenu,
+                    menuIcons: _browseMenuIcons,
+                    onMenuPress: onMenuPress,
+                  ),
                   MenuButtonSection(
-                      title: "HISTORY",
-                      selectedMenu: _selectedMenu,
-                      menuIcons: _historyMenuIcons,
-                      onMenuPress: onMenuPress),
+                    title: "HISTORY",
+                    selectedMenu: _selectedMenu,
+                    menuIcons: _historyMenuIcons,
+                    onMenuPress: onMenuPress,
+                  ),
                 ],
               ),
             ),
@@ -110,34 +117,37 @@ class _SideMenuState extends State<SideMenu> {
           // const Spacer(),
           Padding(
             padding: const EdgeInsets.all(20),
-            child: Row(children: [
-              SizedBox(
-                width: 32,
-                height: 32,
-                child: Opacity(
-                  opacity: 0.6,
-                  child: RiveAnimation.asset(
-                    app_assets.iconsRiv,
-                    stateMachines: [_themeMenuIcon[0].riveIcon.stateMachine],
-                    artboard: _themeMenuIcon[0].riveIcon.artboard,
-                    onInit: onThemeRiveIconInit,
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 32,
+                  height: 32,
+                  child: Opacity(
+                    opacity: 0.6,
+                    child: RiveAnimation.asset(
+                      app_assets.iconsRiv,
+                      stateMachines: [_themeMenuIcon[0].riveIcon.stateMachine],
+                      artboard: _themeMenuIcon[0].riveIcon.artboard,
+                      onInit: onThemeRiveIconInit,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: Text(
-                  _themeMenuIcon[0].title,
-                  style: const TextStyle(
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Text(
+                    _themeMenuIcon[0].title,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 17,
                       fontFamily: "Inter",
-                      fontWeight: FontWeight.w600),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
-              ),
-              CupertinoSwitch(value: _isDarkMode, onChanged: onThemeToggle),
-            ]),
-          )
+                CupertinoSwitch(value: _isDarkMode, onChanged: onThemeToggle),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -145,13 +155,13 @@ class _SideMenuState extends State<SideMenu> {
 }
 
 class MenuButtonSection extends StatelessWidget {
-  const MenuButtonSection(
-      {Key? key,
-      required this.title,
-      required this.menuIcons,
-      this.selectedMenu = "Home",
-      this.onMenuPress})
-      : super(key: key);
+  const MenuButtonSection({
+    Key? key,
+    required this.title,
+    required this.menuIcons,
+    this.selectedMenu = "Home",
+    this.onMenuPress,
+  }) : super(key: key);
 
   final String title;
   final String selectedMenu;
@@ -164,15 +174,20 @@ class MenuButtonSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding:
-              const EdgeInsets.only(left: 24, right: 24, top: 40, bottom: 8),
+          padding: const EdgeInsets.only(
+            left: 24,
+            right: 24,
+            top: 40,
+            bottom: 8,
+          ),
           child: Text(
             title,
             style: TextStyle(
-                color: Colors.white.withOpacity(0.7),
-                fontSize: 15,
-                fontFamily: "Inter",
-                fontWeight: FontWeight.w600),
+              color: Colors.white.withOpacity(0.7),
+              fontSize: 15,
+              fontFamily: "Inter",
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
         Container(
@@ -181,17 +196,18 @@ class MenuButtonSection extends StatelessWidget {
             children: [
               for (var menu in menuIcons) ...[
                 Divider(
-                    color: Colors.white.withOpacity(0.1),
-                    thickness: 1,
-                    height: 1,
-                    indent: 16,
-                    endIndent: 16),
+                  color: Colors.white.withOpacity(0.1),
+                  thickness: 1,
+                  height: 1,
+                  indent: 16,
+                  endIndent: 16,
+                ),
                 MenuRow(
                   menu: menu,
                   selectedMenu: selectedMenu,
                   onMenuPress: () => onMenuPress!(menu),
                 ),
-              ]
+              ],
             ],
           ),
         ),

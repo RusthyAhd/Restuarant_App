@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rive/rive.dart';
-import 'package:flutter_samples/samples/ui/rive_app/models/menu_item.dart';
-import 'package:flutter_samples/samples/ui/rive_app/assets.dart' as app_assets;
+import 'package:flutter_samples/ui/models/menu_item.dart';
+import 'package:flutter_samples/ui/assets.dart' as app_assets;
 
 class MenuRow extends StatelessWidget {
-  const MenuRow(
-      {Key? key, required this.menu, this.selectedMenu = "Home", this.onMenuPress})
-      : super(key: key);
+  const MenuRow({
+    Key? key,
+    required this.menu,
+    this.selectedMenu = "Home",
+    this.onMenuPress,
+  }) : super(key: key);
 
   final MenuItemModel menu;
   final String selectedMenu;
@@ -15,7 +18,9 @@ class MenuRow extends StatelessWidget {
 
   void _onMenuIconInit(Artboard artboard) {
     final controller = StateMachineController.fromArtboard(
-        artboard, menu.riveIcon.stateMachine);
+      artboard,
+      menu.riveIcon.stateMachine,
+    );
     artboard.addController(controller!);
     menu.riveIcon.status = controller.findInput<bool>("active") as SMIBool;
   }
@@ -69,11 +74,12 @@ class MenuRow extends StatelessWidget {
               Text(
                 menu.title,
                 style: const TextStyle(
-                    color: Colors.white,
-                    fontFamily: "Inter",
-                    fontWeight: FontWeight.w600,
-                    fontSize: 17),
-              )
+                  color: Colors.white,
+                  fontFamily: "Inter",
+                  fontWeight: FontWeight.w600,
+                  fontSize: 17,
+                ),
+              ),
             ],
           ),
         ),

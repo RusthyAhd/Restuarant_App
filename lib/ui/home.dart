@@ -3,21 +3,27 @@ import 'package:flutter/physics.dart';
 import 'package:flutter/services.dart';
 import 'package:rive/rive.dart' hide LinearGradient;
 import 'dart:math' as math;
-import 'package:flutter_samples/samples/ui/rive_app/navigation/custom_tab_bar.dart';
-import 'package:flutter_samples/samples/ui/rive_app/navigation/home_tab_view.dart';
-import 'package:flutter_samples/samples/ui/rive_app/on_boarding/onboarding_view.dart';
-import 'package:flutter_samples/samples/ui/rive_app/navigation/side_menu.dart';
-import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
-import 'package:flutter_samples/samples/ui/rive_app/assets.dart' as app_assets;
+import 'package:flutter_samples/ui/navigation/custom_tab_bar.dart';
+import 'package:flutter_samples/ui/navigation/home_tab_view.dart';
+import 'package:flutter_samples/ui/on_boarding/onboarding_view.dart';
+import 'package:flutter_samples/ui/navigation/side_menu.dart';
+import 'package:flutter_samples/ui/theme.dart';
+import 'package:flutter_samples/ui/assets.dart' as app_assets;
 
 // Common Tab Scene for the tabs other than 1st one, showing only tab name in center
 Widget commonTabScene(String tabName) {
   return Container(
-      color: RiveAppTheme.background,
-      alignment: Alignment.center,
-      child: Text(tabName,
-          style: const TextStyle(
-              fontSize: 28, fontFamily: "Poppins", color: Colors.black)));
+    color: RiveAppTheme.background,
+    alignment: Alignment.center,
+    child: Text(
+      tabName,
+      style: const TextStyle(
+        fontSize: 28,
+        fontFamily: "Poppins",
+        color: Colors.black,
+      ),
+    ),
+  );
 }
 
 class RiveAppHome extends StatefulWidget {
@@ -55,8 +61,10 @@ class _RiveAppHomeState extends State<RiveAppHome>
   );
 
   void _onMenuIconInit(Artboard artboard) {
-    final controller =
-        StateMachineController.fromArtboard(artboard, "State Machine");
+    final controller = StateMachineController.fromArtboard(
+      artboard,
+      "State Machine",
+    );
     artboard.addController(controller!);
     _menuBtn = controller.findInput<bool>("isOpen") as SMIBool;
     _menuBtn.value = true;
@@ -70,11 +78,13 @@ class _RiveAppHomeState extends State<RiveAppHome>
       final springAnim = SpringSimulation(springDesc, 0, 1, 0);
       _onBoardingAnimController?.animateWith(springAnim);
     } else {
-      _onBoardingAnimController?.reverse().whenComplete(() => {
-            setState(() {
-              _showOnBoarding = false;
-            })
-          });
+      _onBoardingAnimController?.reverse().whenComplete(
+        () => {
+          setState(() {
+            _showOnBoarding = false;
+          }),
+        },
+      );
     }
   }
 
@@ -87,9 +97,9 @@ class _RiveAppHomeState extends State<RiveAppHome>
     }
     _menuBtn.change(!_menuBtn.value);
 
-    SystemChrome.setSystemUIOverlayStyle(_menuBtn.value
-        ? SystemUiOverlayStyle.dark
-        : SystemUiOverlayStyle.light);
+    SystemChrome.setSystemUIOverlayStyle(
+      _menuBtn.value ? SystemUiOverlayStyle.dark : SystemUiOverlayStyle.light,
+    );
   }
 
   @override
@@ -105,15 +115,13 @@ class _RiveAppHomeState extends State<RiveAppHome>
       vsync: this,
     );
 
-    _sidebarAnim = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
-      parent: _animationController!,
-      curve: Curves.linear,
-    ));
+    _sidebarAnim = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: _animationController!, curve: Curves.linear),
+    );
 
-    _onBoardingAnim = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
-      parent: _onBoardingAnimController!,
-      curve: Curves.linear,
-    ));
+    _onBoardingAnim = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: _onBoardingAnimController!, curve: Curves.linear),
+    );
 
     _tabBody = _screens.first;
     super.initState();
@@ -139,10 +147,13 @@ class _RiveAppHomeState extends State<RiveAppHome>
               builder: (BuildContext context, Widget? child) {
                 return Transform(
                   alignment: Alignment.center,
-                  transform: Matrix4.identity()
-                    ..setEntry(3, 2, 0.001)
-                    ..rotateY(((1 - _sidebarAnim.value) * -30) * math.pi / 180)
-                    ..translate((1 - _sidebarAnim.value) * -300),
+                  transform:
+                      Matrix4.identity()
+                        ..setEntry(3, 2, 0.001)
+                        ..rotateY(
+                          ((1 - _sidebarAnim.value) * -30) * math.pi / 180,
+                        )
+                        ..translate((1 - _sidebarAnim.value) * -300),
                   child: child,
                 );
               },
@@ -157,7 +168,8 @@ class _RiveAppHomeState extends State<RiveAppHome>
               animation: _showOnBoarding ? _onBoardingAnim : _sidebarAnim,
               builder: (context, child) {
                 return Transform.scale(
-                  scale: 1 -
+                  scale:
+                      1 -
                       (_showOnBoarding
                           ? _onBoardingAnim.value * 0.08
                           : _sidebarAnim.value * 0.1),
@@ -165,9 +177,12 @@ class _RiveAppHomeState extends State<RiveAppHome>
                     offset: Offset(_sidebarAnim.value * 265, 0),
                     child: Transform(
                       alignment: Alignment.center,
-                      transform: Matrix4.identity()
-                        ..setEntry(3, 2, 0.001)
-                        ..rotateY((_sidebarAnim.value * 30) * math.pi / 180),
+                      transform:
+                          Matrix4.identity()
+                            ..setEntry(3, 2, 0.001)
+                            ..rotateY(
+                              (_sidebarAnim.value * 30) * math.pi / 180,
+                            ),
                       child: child,
                     ),
                   ),
@@ -199,7 +214,7 @@ class _RiveAppHomeState extends State<RiveAppHome>
                         color: RiveAppTheme.shadow.withOpacity(0.2),
                         blurRadius: 5,
                         offset: const Offset(0, 5),
-                      )
+                      ),
                     ],
                   ),
                   child: const Icon(Icons.person_outline),
@@ -241,7 +256,7 @@ class _RiveAppHomeState extends State<RiveAppHome>
                           color: RiveAppTheme.shadow.withOpacity(0.2),
                           blurRadius: 5,
                           offset: const Offset(0, 5),
-                        )
+                        ),
                       ],
                     ),
                     child: RiveAnimation.asset(
@@ -262,10 +277,11 @@ class _RiveAppHomeState extends State<RiveAppHome>
                 builder: (context, child) {
                   return Transform.translate(
                     offset: Offset(
-                        0,
-                        -(MediaQuery.of(context).size.height +
-                                MediaQuery.of(context).padding.bottom) *
-                            (1 - _onBoardingAnim.value)),
+                      0,
+                      -(MediaQuery.of(context).size.height +
+                              MediaQuery.of(context).padding.bottom) *
+                          (1 - _onBoardingAnim.value),
+                    ),
                     child: child!,
                   );
                 },
@@ -275,17 +291,20 @@ class _RiveAppHomeState extends State<RiveAppHome>
                   child: Container(
                     clipBehavior: Clip.hardEdge,
                     margin: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).padding.bottom + 18),
+                      bottom: MediaQuery.of(context).padding.bottom + 18,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(30),
-                          bottomRight: Radius.circular(30)),
+                        bottomLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30),
+                      ),
                       boxShadow: [
                         BoxShadow(
-                            color: Colors.black.withOpacity(0.5),
-                            blurRadius: 40,
-                            offset: const Offset(0, 40))
+                          color: Colors.black.withOpacity(0.5),
+                          blurRadius: 40,
+                          offset: const Offset(0, 40),
+                        ),
                       ],
                     ),
                     child: OnBoardingView(
@@ -303,25 +322,28 @@ class _RiveAppHomeState extends State<RiveAppHome>
             child: Align(
               alignment: Alignment.bottomCenter,
               child: AnimatedBuilder(
-                  animation: !_showOnBoarding ? _sidebarAnim : _onBoardingAnim,
-                  builder: (context, child) {
-                    return Container(
-                      height: 150,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            RiveAppTheme.background.withOpacity(0),
-                            RiveAppTheme.background.withOpacity(1 -
+                animation: !_showOnBoarding ? _sidebarAnim : _onBoardingAnim,
+                builder: (context, child) {
+                  return Container(
+                    height: 150,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          RiveAppTheme.background.withOpacity(0),
+                          RiveAppTheme.background.withOpacity(
+                            1 -
                                 (!_showOnBoarding
                                     ? _sidebarAnim.value
-                                    : _onBoardingAnim.value))
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
+                                    : _onBoardingAnim.value),
+                          ),
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
                       ),
-                    );
-                  }),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ],
@@ -332,10 +354,11 @@ class _RiveAppHomeState extends State<RiveAppHome>
           builder: (context, child) {
             return Transform.translate(
               offset: Offset(
-                  0,
-                  !_showOnBoarding
-                      ? _sidebarAnim.value * 300
-                      : _onBoardingAnim.value * 200),
+                0,
+                !_showOnBoarding
+                    ? _sidebarAnim.value * 300
+                    : _onBoardingAnim.value * 200,
+              ),
               child: child,
             );
           },
@@ -348,7 +371,7 @@ class _RiveAppHomeState extends State<RiveAppHome>
                     _tabBody = _screens[tabIndex];
                   });
                 },
-              )
+              ),
             ],
           ),
         ),

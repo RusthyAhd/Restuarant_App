@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_samples/samples/ui/rive_app/models/tab_item.dart';
+import 'package:flutter_samples/ui/models/tab_item.dart';
 
 class MenuItemModel {
-  MenuItemModel({
-    this.id,
-    this.title = "",
-    required this.riveIcon,
-  });
+  MenuItemModel({this.id, this.title = "", required this.riveIcon});
 
   UniqueKey? id = UniqueKey();
   String title;
@@ -19,13 +15,17 @@ class MenuItemModel {
     ),
     MenuItemModel(
       title: "Search",
-      riveIcon:
-          TabItem(stateMachine: "SEARCH_Interactivity", artboard: "SEARCH"),
+      riveIcon: TabItem(
+        stateMachine: "SEARCH_Interactivity",
+        artboard: "SEARCH",
+      ),
     ),
     MenuItemModel(
       title: "Favorites",
-      riveIcon:
-          TabItem(stateMachine: "STAR_Interactivity", artboard: "LIKE/STAR"),
+      riveIcon: TabItem(
+        stateMachine: "STAR_Interactivity",
+        artboard: "LIKE/STAR",
+      ),
     ),
     MenuItemModel(
       title: "Help",
@@ -47,8 +47,10 @@ class MenuItemModel {
   static List<MenuItemModel> menuItems3 = [
     MenuItemModel(
       title: "Dark Mode",
-      riveIcon:
-          TabItem(stateMachine: "SETTINGS_Interactivity", artboard: "SETTINGS"),
+      riveIcon: TabItem(
+        stateMachine: "SETTINGS_Interactivity",
+        artboard: "SETTINGS",
+      ),
     ),
   ];
 }
