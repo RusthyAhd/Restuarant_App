@@ -63,11 +63,11 @@ class _CustomTabBarState extends State<CustomTabBar> {
           // Clip to avoid the tab touch outside the border radius area
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            color: RiveAppTheme.background2.withOpacity(0.8),
+            color: RiveAppTheme.getBackground2(context).withOpacity(0.8),
             borderRadius: BorderRadius.circular(24),
             boxShadow: [
               BoxShadow(
-                color: RiveAppTheme.background2.withOpacity(0.3),
+                color: RiveAppTheme.getBackground2(context).withOpacity(0.3),
                 blurRadius: 20,
                 offset: const Offset(0, 20),
               ),
@@ -96,7 +96,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
                             height: 4,
                             width: _selectedTab == index ? 20 : 0,
                             decoration: BoxDecoration(
-                              color: RiveAppTheme.accentColor,
+                              color: RiveAppTheme.getAccentColor(context),
                               borderRadius: BorderRadius.circular(2),
                             ),
                           ),

@@ -12,17 +12,37 @@ import 'package:flutter_samples/ui/assets.dart' as app_assets;
 
 // Common Tab Scene for the tabs other than 1st one, showing only tab name in center
 Widget commonTabScene(String tabName) {
-  return Container(
-    color: RiveAppTheme.background,
-    alignment: Alignment.center,
-    child: Text(
-      tabName,
-      style: const TextStyle(
-        fontSize: 28,
-        fontFamily: "Poppins",
-        color: Colors.black,
-      ),
-    ),
+  return Builder(
+    builder:
+        (context) => Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                RiveAppTheme.getBackground(context),
+                RiveAppTheme.getBackground2(context),
+              ],
+            ),
+          ),
+          alignment: Alignment.center,
+          child: Text(
+            tabName,
+            style: TextStyle(
+              fontSize: 32,
+              fontFamily: "Poppins",
+              fontWeight: FontWeight.bold,
+              color: RiveAppTheme.getTextColor(context),
+              shadows: [
+                Shadow(
+                  offset: const Offset(2, 2),
+                  blurRadius: 4,
+                  color: RiveAppTheme.getShadow(context),
+                ),
+              ],
+            ),
+          ),
+        ),
   );
 }
 
@@ -45,7 +65,7 @@ class _RiveAppHomeState extends State<RiveAppHome>
   late SMIBool _menuBtn;
 
   bool _showOnBoarding = false;
-  Widget _tabBody = Container(color: RiveAppTheme.background);
+  Widget _tabBody = Container(); // Will be set in initState
   final List<Widget> _screens = [
     const HomeTabView(),
     commonTabScene("Search"),
@@ -140,7 +160,22 @@ class _RiveAppHomeState extends State<RiveAppHome>
       extendBody: true,
       body: Stack(
         children: [
-          Positioned(child: Container(color: RiveAppTheme.background2)),
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    RiveAppTheme.getBackground(context),
+                    RiveAppTheme.getBackground2(context),
+                    RiveAppTheme.getBackground(context),
+                  ],
+                  stops: const [0.0, 0.5, 1.0],
+                ),
+              ),
+            ),
+          ),
           RepaintBoundary(
             child: AnimatedBuilder(
               animation: _sidebarAnim,
@@ -207,17 +242,26 @@ class _RiveAppHomeState extends State<RiveAppHome>
                   width: 36,
                   height: 36,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    gradient: LinearGradient(
+                      colors: [
+                        RiveAppTheme.secondaryYellow,
+                        RiveAppTheme.accentOrange,
+                      ],
+                    ),
                     borderRadius: BorderRadius.circular(18),
                     boxShadow: [
                       BoxShadow(
-                        color: RiveAppTheme.shadow.withOpacity(0.2),
-                        blurRadius: 5,
-                        offset: const Offset(0, 5),
+                        color: RiveAppTheme.getShadow(context),
+                        blurRadius: 8,
+                        offset: const Offset(0, 4),
                       ),
                     ],
                   ),
-                  child: const Icon(Icons.person_outline),
+                  child: Icon(
+                    Icons.person_outline,
+                    color: Colors.white,
+                    size: 20,
+                  ),
                 ),
               ),
               onTap: () {
@@ -253,7 +297,9 @@ class _RiveAppHomeState extends State<RiveAppHome>
                       borderRadius: BorderRadius.circular(44 / 2),
                       boxShadow: [
                         BoxShadow(
-                          color: RiveAppTheme.shadow.withOpacity(0.2),
+                          color: RiveAppTheme.getShadow(
+                            context,
+                          ).withOpacity(0.2),
                           blurRadius: 5,
                           offset: const Offset(0, 5),
                         ),
@@ -329,8 +375,8 @@ class _RiveAppHomeState extends State<RiveAppHome>
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          RiveAppTheme.background.withOpacity(0),
-                          RiveAppTheme.background.withOpacity(
+                          RiveAppTheme.getBackground(context).withOpacity(0),
+                          RiveAppTheme.getBackground(context).withOpacity(
                             1 -
                                 (!_showOnBoarding
                                     ? _sidebarAnim.value

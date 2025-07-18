@@ -22,7 +22,14 @@ class _HomeTabViewState extends State<HomeTabView> {
       body: Container(
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
-          color: RiveAppTheme.background,
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              RiveAppTheme.getBackground(context),
+              RiveAppTheme.getBackground2(context),
+            ],
+          ),
           borderRadius: BorderRadius.circular(30),
         ),
         child: SingleChildScrollView(

@@ -52,7 +52,7 @@ class _SideMenuState extends State<SideMenu> {
       ),
       constraints: const BoxConstraints(maxWidth: 288),
       decoration: BoxDecoration(
-        color: RiveAppTheme.background2,
+        color: RiveAppTheme.getBackground2(context),
         borderRadius: BorderRadius.circular(30),
       ),
       child: Column(

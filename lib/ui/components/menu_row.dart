@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:rive/rive.dart';
 import 'package:flutter_samples/ui/models/menu_item.dart';
 import 'package:flutter_samples/ui/assets.dart' as app_assets;
+import '../theme.dart';
 
 class MenuRow extends StatelessWidget {
   const MenuRow({
@@ -46,7 +47,7 @@ class MenuRow extends StatelessWidget {
           height: 56,
           curve: const Cubic(0.2, 0.8, 0.2, 1),
           decoration: BoxDecoration(
-            color: Colors.blue,
+            color: RiveAppTheme.getPrimaryColor(context),
             borderRadius: BorderRadius.circular(10),
           ),
         ),

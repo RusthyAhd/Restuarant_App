@@ -229,7 +229,9 @@ class _OnBoardingViewState extends State<OnBoardingView>
                         ignoring: true,
                         child: Opacity(
                           opacity: 0.4 * _signInAnimController!.value,
-                          child: Container(color: RiveAppTheme.shadow),
+                          child: Container(
+                            color: RiveAppTheme.getShadow(context),
+                          ),
                         ),
                       ),
                     ),

@@ -21,7 +21,7 @@ class CourseModel {
       title: "Animations in SwiftUI",
       subtitle: "Build and animate an iOS app from scratch",
       caption: "20 sections - 3 hours",
-      color: const Color(0xFF7850F0),
+      color: const Color(0xFFD32F2F), // Deep Red
       image: app_assets.topic_1,
     ),
     CourseModel(
@@ -29,7 +29,7 @@ class CourseModel {
       subtitle:
           "Apply your Swift and SwiftUI knowledge by building real, quick and various applications from scratch",
       caption: "47 sections - 11 hours",
-      color: const Color(0xFF6792FF),
+      color: const Color(0xFFFFC107), // Golden Yellow
       image: app_assets.topic_2,
     ),
     CourseModel(
@@ -37,7 +37,7 @@ class CourseModel {
       subtitle:
           "Design and code a SwiftUI 3 app with custom layouts, animations and gestures using Xcode 13, SF Symbols 3, Canvas, Concurrency, Searchable and a whole lot more",
       caption: "21 sections - 4 hours",
-      color: const Color(0xFF005FE7),
+      color: const Color(0xFFFF5722), // Orange Red
       image: app_assets.topic_1,
     ),
   ];
@@ -46,25 +46,25 @@ class CourseModel {
     CourseModel(
       title: "State Machine",
       caption: "Watch video - 15 mins",
-      color: const Color(0xFF9CC5FF),
+      color: const Color(0xFFFFEB3B), // Bright Yellow
       image: app_assets.topic_2,
     ),
     CourseModel(
       title: "Animated Menu",
       caption: "Watch video - 10 mins",
-      color: const Color(0xFF6E6AE8),
+      color: const Color(0xFFFF9800), // Orange
       image: app_assets.topic_1,
     ),
     CourseModel(
       title: "Tab Bar",
       caption: "Watch video - 8 mins",
-      color: const Color(0xFF005FE7),
+      color: const Color(0xFFE91E63), // Pink Red
       image: app_assets.topic_2,
     ),
     CourseModel(
       title: "Button",
       caption: "Watch video - 9 mins",
-      color: const Color(0xFFBBA6FF),
+      color: const Color(0xFFFF6B35), // Red Orange
       image: app_assets.topic_1,
     ),
   ];
