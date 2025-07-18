@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_samples/models/samples.dart';
-import 'package:flutter_samples/samples/animations/animation_samples_list.dart';
-import 'package:flutter_samples/samples/animations/custom_caret/custom_caret.dart';
-import 'package:flutter_samples/screens/samples_list_view.dart';
-import 'package:flutter_samples/samples/ui/rive_app/home.dart';
-import 'package:flutter_samples/samples/animations/grid_magnification/grid_magnification.dart';
+import 'package:flutter_samples/ui/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,22 +12,37 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowMaterialGrid: false,
-      title: 'New Flutter Samples',
+      debugShowCheckedModeBanner: false,
+      title: 'Restaurant Management App',
       theme: ThemeData(
-        primarySwatch: Colors.yellow,
+        primarySwatch: Colors.orange,
+        primaryColor: const Color(
+          0xFFD84315,
+        ), // Deep orange for restaurant theme
+        scaffoldBackgroundColor: const Color(0xFFF5F5F5),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFFD84315),
+          foregroundColor: Colors.white,
+          elevation: 2,
+        ),
+        cardTheme: const CardThemeData(
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(12)),
+          ),
+          color: Colors.white,
+        ),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFFD84315),
+          brightness: Brightness.light,
+        ).copyWith(
+          secondary: const Color(0xFFFF5722), // Bright orange accent
+          surface: Colors.white,
+          onSurface: const Color(0xFF212121),
+        ),
       ),
-      routes: {
-        RiveAppHome.route: (context) => const RiveAppHome(),
-        AnimationSamplesList.route: (context) => const AnimationSamplesList(),
-        GridMagnification.route: (context) => const GridMagnification(),
-        CustomCaret.route: (context) => const CustomCaret(),
-      },
-      home: SamplesListView(
-        title: "Flutter New Samples",
-        backEnabled: false,
-        listData: SampleData.sampleTypes,
-      ),
+      routes: {RiveAppHome.route: (context) => const RiveAppHome()},
+      home: const RiveAppHome(),
     );
   }
 }
