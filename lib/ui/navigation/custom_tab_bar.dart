@@ -4,6 +4,7 @@ import 'package:rive/rive.dart' hide LinearGradient;
 import 'package:flutter_samples/ui/models/tab_item.dart';
 import 'package:flutter_samples/ui/theme.dart';
 import 'package:flutter_samples/ui/assets.dart' as app_assets;
+import 'dart:ui';
 
 class CustomTabBar extends StatefulWidget {
   const CustomTabBar({Key? key, required this.onTabChange}) : super(key: key);
@@ -48,80 +49,112 @@ class _CustomTabBarState extends State<CustomTabBar> {
     return SafeArea(
       child: Container(
         margin: const EdgeInsets.fromLTRB(24, 0, 24, 8),
-        padding: const EdgeInsets.all(1),
-        constraints: const BoxConstraints(maxWidth: 768),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
-          gradient: LinearGradient(
-            colors: [
-              Colors.white.withOpacity(0.5),
-              Colors.white.withOpacity(0),
-            ],
-          ),
-        ),
-        child: Container(
-          // Clip to avoid the tab touch outside the border radius area
-          clipBehavior: Clip.hardEdge,
-          decoration: BoxDecoration(
-            color: RiveAppTheme.background2.withOpacity(0.8),
-            borderRadius: BorderRadius.circular(24),
-            boxShadow: [
-              BoxShadow(
-                color: RiveAppTheme.background2.withOpacity(0.3),
-                blurRadius: 20,
-                offset: const Offset(0, 20),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(25),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              constraints: const BoxConstraints(maxWidth: 768),
+              decoration: BoxDecoration(
+                gradient: RiveAppTheme.getGlassGradient(context),
+                borderRadius: BorderRadius.circular(25),
+                border: Border.all(color: RiveAppTheme.glassBorder, width: 1),
+                boxShadow: [
+                  BoxShadow(
+                    color: RiveAppTheme.getShadow(context),
+                    blurRadius: 30,
+                    offset: const Offset(0, 15),
+                  ),
+                  BoxShadow(
+                    color: RiveAppTheme.glassHighlight,
+                    blurRadius: 1,
+                    offset: const Offset(0, 1),
+                  ),
+                ],
               ),
-            ],
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: List.generate(_icons.length, (index) {
-              TabItem icon = _icons[index];
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: List.generate(_icons.length, (index) {
+                  TabItem icon = _icons[index];
 
-              return Expanded(
-                key: icon.id,
-                child: CupertinoButton(
-                  padding: const EdgeInsets.all(12),
-                  child: AnimatedOpacity(
-                    opacity: _selectedTab == index ? 1 : 0.5,
-                    duration: const Duration(milliseconds: 200),
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      alignment: Alignment.center,
-                      children: [
-                        Positioned(
-                          top: -4,
-                          child: AnimatedContainer(
+                  return Expanded(
+                    key: icon.id,
+                    child: CupertinoButton(
+                      padding: const EdgeInsets.all(8),
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                        decoration:
+                            _selectedTab == index
+                                ? BoxDecoration(
+                                  gradient: RiveAppTheme.getButtonGradient(),
+                                  borderRadius: BorderRadius.circular(18),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: RiveAppTheme.secondaryYellow
+                                          .withOpacity(0.4),
+                                      blurRadius: 12,
+                                      spreadRadius: 2,
+                                    ),
+                                  ],
+                                )
+                                : null,
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          child: AnimatedOpacity(
+                            opacity: _selectedTab == index ? 1 : 0.6,
                             duration: const Duration(milliseconds: 200),
-                            height: 4,
-                            width: _selectedTab == index ? 20 : 0,
-                            decoration: BoxDecoration(
-                              color: RiveAppTheme.accentColor,
-                              borderRadius: BorderRadius.circular(2),
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              alignment: Alignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 32,
+                                  width: 32,
+                                  child: RiveAnimation.asset(
+                                    app_assets.iconsRiv,
+                                    stateMachines: [icon.stateMachine],
+                                    artboard: icon.artboard,
+                                    onInit: (artboard) {
+                                      _onRiveIconInit(artboard, index);
+                                    },
+                                  ),
+                                ),
+                                if (_selectedTab == index)
+                                  Positioned(
+                                    bottom: -6,
+                                    child: Container(
+                                      width: 6,
+                                      height: 6,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        shape: BoxShape.circle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.white.withOpacity(
+                                              0.5,
+                                            ),
+                                            blurRadius: 6,
+                                            spreadRadius: 1,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                              ],
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 36,
-                          width: 36,
-                          child: RiveAnimation.asset(
-                            app_assets.iconsRiv,
-                            stateMachines: [icon.stateMachine],
-                            artboard: icon.artboard,
-                            onInit: (artboard) {
-                              _onRiveIconInit(artboard, index);
-                            },
-                          ),
-                        ),
-                      ],
+                      ),
+                      onPressed: () {
+                        onTabPress(index);
+                      },
                     ),
-                  ),
-                  onPressed: () {
-                    onTabPress(index);
-                  },
-                ),
-              );
-            }),
+                  );
+                }),
+              ),
+            ),
           ),
         ),
       ),

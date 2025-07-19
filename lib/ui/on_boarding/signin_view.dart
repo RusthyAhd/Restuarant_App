@@ -104,12 +104,16 @@ class _SignInViewState extends State<SignInView> {
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: RiveAppTheme.shadow.withOpacity(0.3),
+                          color: RiveAppTheme.getShadow(
+                            context,
+                          ).withOpacity(0.3),
                           offset: const Offset(0, 3),
                           blurRadius: 5,
                         ),
                         BoxShadow(
-                          color: RiveAppTheme.shadow.withOpacity(0.3),
+                          color: RiveAppTheme.getShadow(
+                            context,
+                          ).withOpacity(0.3),
                           offset: const Offset(0, 30),
                           blurRadius: 30,
                         ),
@@ -306,7 +310,9 @@ class _SignInViewState extends State<SignInView> {
                           borderRadius: BorderRadius.circular(36 / 2),
                           boxShadow: [
                             BoxShadow(
-                              color: RiveAppTheme.shadow.withOpacity(0.3),
+                              color: RiveAppTheme.getShadow(
+                                context,
+                              ).withOpacity(0.3),
                               blurRadius: 5,
                               offset: const Offset(0, 3),
                             ),

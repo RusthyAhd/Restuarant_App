@@ -3,27 +3,141 @@ import 'package:flutter/physics.dart';
 import 'package:flutter/services.dart';
 import 'package:rive/rive.dart' hide LinearGradient;
 import 'dart:math' as math;
+import 'dart:ui';
 import 'package:flutter_samples/ui/navigation/custom_tab_bar.dart';
 import 'package:flutter_samples/ui/navigation/home_tab_view.dart';
 import 'package:flutter_samples/ui/on_boarding/onboarding_view.dart';
 import 'package:flutter_samples/ui/navigation/side_menu.dart';
 import 'package:flutter_samples/ui/theme.dart';
+import 'package:flutter_samples/ui/components/restaurant_icons.dart';
 import 'package:flutter_samples/ui/assets.dart' as app_assets;
+
+// Custom painter for restaurant-themed background
+class RestaurantBackgroundPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint =
+        Paint()
+          ..style = PaintingStyle.fill
+          ..shader = LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              RiveAppTheme.secondaryYellow.withOpacity(0.05),
+              RiveAppTheme.accentOrange.withOpacity(0.03),
+              RiveAppTheme.warmBrown.withOpacity(0.02),
+            ],
+          ).createShader(Rect.fromLTWH(0, 0, size.width, size.height));
+
+    // Draw subtle geometric shapes
+    canvas.drawCircle(
+      Offset(size.width * 0.1, size.height * 0.2),
+      size.width * 0.3,
+      paint,
+    );
+
+    canvas.drawCircle(
+      Offset(size.width * 0.9, size.height * 0.7),
+      size.width * 0.25,
+      paint,
+    );
+
+    canvas.drawCircle(
+      Offset(size.width * 0.7, size.height * 0.1),
+      size.width * 0.2,
+      paint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
 
 // Common Tab Scene for the tabs other than 1st one, showing only tab name in center
 Widget commonTabScene(String tabName) {
-  return Container(
-    color: RiveAppTheme.background,
-    alignment: Alignment.center,
-    child: Text(
-      tabName,
-      style: const TextStyle(
-        fontSize: 28,
-        fontFamily: "Poppins",
-        color: Colors.black,
-      ),
-    ),
+  return Builder(
+    builder:
+        (context) => Container(
+          decoration: BoxDecoration(
+            gradient: RiveAppTheme.getBackgroundGradient(context),
+          ),
+          child: Center(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 30,
+                  ),
+                  decoration: RiveAppTheme.getGlassDecoration(
+                    context,
+                    borderRadius: 30,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 80,
+                        height: 80,
+                        decoration: BoxDecoration(
+                          gradient: RiveAppTheme.getButtonGradient(),
+                          borderRadius: BorderRadius.circular(25),
+                          boxShadow: [
+                            BoxShadow(
+                              color: RiveAppTheme.secondaryYellow.withOpacity(
+                                0.3,
+                              ),
+                              blurRadius: 20,
+                              spreadRadius: 5,
+                            ),
+                          ],
+                        ),
+                        child: Icon(
+                          _getTabIcon(tabName),
+                          color: Colors.white,
+                          size: 40,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Text(
+                        tabName,
+                        style: RiveAppTheme.getHeadlineStyle(context),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Coming Soon',
+                        style: RiveAppTheme.getCaptionStyle(context).copyWith(
+                          color: RiveAppTheme.secondaryYellow,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
   );
+}
+
+IconData _getTabIcon(String tabName) {
+  switch (tabName.toLowerCase()) {
+    case 'menu':
+      return RestaurantIcons.menu;
+    case 'orders':
+      return RestaurantIcons.clock;
+    case 'notifications':
+      return RestaurantIcons.order;
+    case 'profile':
+      return RestaurantIcons.chef;
+    default:
+      return Icons.restaurant;
+  }
 }
 
 class RiveAppHome extends StatefulWidget {
@@ -45,13 +159,13 @@ class _RiveAppHomeState extends State<RiveAppHome>
   late SMIBool _menuBtn;
 
   bool _showOnBoarding = false;
-  Widget _tabBody = Container(color: RiveAppTheme.background);
+  Widget _tabBody = Container(); // Will be set in initState
   final List<Widget> _screens = [
     const HomeTabView(),
-    commonTabScene("Search"),
-    commonTabScene("Timer"),
-    commonTabScene("Bell"),
-    commonTabScene("User"),
+    commonTabScene("Menu"),
+    commonTabScene("Orders"),
+    commonTabScene("Notifications"),
+    commonTabScene("Profile"),
   ];
 
   final springDesc = const SpringDescription(
@@ -140,7 +254,15 @@ class _RiveAppHomeState extends State<RiveAppHome>
       extendBody: true,
       body: Stack(
         children: [
-          Positioned(child: Container(color: RiveAppTheme.background2)),
+          // Enhanced background with glass effect
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: RiveAppTheme.getBackgroundGradient(context),
+              ),
+              child: CustomPaint(painter: RestaurantBackgroundPainter()),
+            ),
+          ),
           RepaintBoundary(
             child: AnimatedBuilder(
               animation: _sidebarAnim,
@@ -203,21 +325,35 @@ class _RiveAppHomeState extends State<RiveAppHome>
             child: GestureDetector(
               child: MouseRegion(
                 cursor: SystemMouseCursors.click,
-                child: Container(
-                  width: 36,
-                  height: 36,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(18),
-                    boxShadow: [
-                      BoxShadow(
-                        color: RiveAppTheme.shadow.withOpacity(0.2),
-                        blurRadius: 5,
-                        offset: const Offset(0, 5),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(18),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                    child: Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        gradient: RiveAppTheme.getButtonGradient(),
+                        borderRadius: BorderRadius.circular(18),
+                        border: Border.all(
+                          color: RiveAppTheme.glassBorder,
+                          width: 1,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: RiveAppTheme.getShadow(context),
+                            blurRadius: 8,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
                       ),
-                    ],
+                      child: Icon(
+                        RestaurantIcons.chef,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
                   ),
-                  child: const Icon(Icons.person_outline),
                 ),
               ),
               onTap: () {
@@ -253,7 +389,9 @@ class _RiveAppHomeState extends State<RiveAppHome>
                       borderRadius: BorderRadius.circular(44 / 2),
                       boxShadow: [
                         BoxShadow(
-                          color: RiveAppTheme.shadow.withOpacity(0.2),
+                          color: RiveAppTheme.getShadow(
+                            context,
+                          ).withOpacity(0.2),
                           blurRadius: 5,
                           offset: const Offset(0, 5),
                         ),
@@ -329,8 +467,8 @@ class _RiveAppHomeState extends State<RiveAppHome>
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          RiveAppTheme.background.withOpacity(0),
-                          RiveAppTheme.background.withOpacity(
+                          RiveAppTheme.getBackground(context).withOpacity(0),
+                          RiveAppTheme.getBackground(context).withOpacity(
                             1 -
                                 (!_showOnBoarding
                                     ? _sidebarAnim.value
