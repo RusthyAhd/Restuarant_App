@@ -5,58 +5,17 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // Light theme configuration - Yellow & Red Restaurant Theme
-  ThemeData _buildLightTheme() {
-    return ThemeData(
-      useMaterial3: true,
-      primarySwatch: Colors.orange,
-      primaryColor: const Color(0xFFD32F2F), // Deep Red
-      scaffoldBackgroundColor: const Color(
-        0xFFFFFDE7,
-      ), // Light Yellow Background
-      appBarTheme: const AppBarTheme(
-        backgroundColor: Color(0xFFD32F2F), // Deep Red
-        foregroundColor: Colors.white,
-        elevation: 3,
-        shadowColor: Colors.black26,
-      ),
-      cardTheme: const CardThemeData(
-        elevation: 6,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(16)),
-        ),
-        color: Colors.white,
-        shadowColor: Colors.black12,
-      ),
-      colorScheme: const ColorScheme.light(
-        primary: Color(0xFFD32F2F), // Deep Red
-        secondary: Color(0xFFFFC107), // Golden Yellow
-        tertiary: Color(0xFFFF5722), // Orange Red
-        surface: Colors.white,
-        onSurface: Color(0xFF212121),
-        onPrimary: Colors.white,
-        onSecondary: Color(0xFF212121),
-        background: Color(0xFFFFFDE7), // Light Yellow
-        onBackground: Color(0xFF212121),
-        error: Color(0xFFB71C1C),
-        onError: Colors.white,
-        outline: Color(0xFFBDBDBD),
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFFD32F2F),
-          foregroundColor: Colors.white,
-          elevation: 4,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-      ),
-    );
-  }
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // Always use dark theme - no toggle needed
+
+  // Remove the toggleTheme function since we only use dark theme
 
   // Dark theme configuration - Dark Restaurant Theme with Yellow & Red Accents
   ThemeData _buildDarkTheme() {
@@ -112,9 +71,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Restaurant Management App',
-      theme: _buildLightTheme(),
-      darkTheme: _buildDarkTheme(),
-      themeMode: ThemeMode.system, // Follows system theme
+      theme: _buildDarkTheme(), // Use only dark theme
+      themeMode: ThemeMode.dark, // Always dark theme
       routes: {RiveAppHome.route: (context) => const RiveAppHome()},
       home: const RiveAppHome(),
     );

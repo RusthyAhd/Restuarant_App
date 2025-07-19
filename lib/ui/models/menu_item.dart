@@ -14,14 +14,14 @@ class MenuItemModel {
       riveIcon: TabItem(stateMachine: "HOME_interactivity", artboard: "HOME"),
     ),
     MenuItemModel(
-      title: "Search",
+      title: "Menu",
       riveIcon: TabItem(
         stateMachine: "SEARCH_Interactivity",
         artboard: "SEARCH",
       ),
     ),
     MenuItemModel(
-      title: "Favorites",
+      title: "Wallet",
       riveIcon: TabItem(
         stateMachine: "STAR_Interactivity",
         artboard: "LIKE/STAR",
@@ -35,7 +35,7 @@ class MenuItemModel {
 
   static List<MenuItemModel> menuItems2 = [
     MenuItemModel(
-      title: "History",
+      title: "Orders",
       riveIcon: TabItem(stateMachine: "TIMER_Interactivity", artboard: "TIMER"),
     ),
     MenuItemModel(
