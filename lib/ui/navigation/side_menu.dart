@@ -59,13 +59,9 @@ class _SideMenuState extends State<SideMenu> with TickerProviderStateMixin {
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-    _toggleAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(
-      parent: _themeToggleController,
-      curve: Curves.elasticOut,
-    ));
+    _toggleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _themeToggleController, curve: Curves.elasticOut),
+    );
   }
 
   @override
@@ -78,7 +74,7 @@ class _SideMenuState extends State<SideMenu> with TickerProviderStateMixin {
     setState(() {
       _isDarkTheme = !_isDarkTheme;
     });
-    
+
     if (_isDarkTheme) {
       _themeToggleController.forward();
     } else {
@@ -389,26 +385,39 @@ class _SideMenuState extends State<SideMenu> with TickerProviderStateMixin {
                                           height: 32,
                                           decoration: BoxDecoration(
                                             color: Color.lerp(
-                                              RiveAppTheme.primaryRed.withOpacity(0.2),
-                                              RiveAppTheme.secondaryYellow.withOpacity(0.2),
+                                              RiveAppTheme.primaryRed
+                                                  .withOpacity(0.2),
+                                              RiveAppTheme.secondaryYellow
+                                                  .withOpacity(0.2),
                                               _toggleAnimation.value,
                                             ),
-                                            borderRadius: BorderRadius.circular(8),
+                                            borderRadius: BorderRadius.circular(
+                                              8,
+                                            ),
                                           ),
                                           child: AnimatedSwitcher(
-                                            duration: const Duration(milliseconds: 300),
-                                            transitionBuilder: (child, animation) {
+                                            duration: const Duration(
+                                              milliseconds: 300,
+                                            ),
+                                            transitionBuilder: (
+                                              child,
+                                              animation,
+                                            ) {
                                               return RotationTransition(
                                                 turns: animation,
                                                 child: child,
                                               );
                                             },
                                             child: Icon(
-                                              _isDarkTheme ? Icons.dark_mode_outlined : Icons.light_mode_outlined,
+                                              _isDarkTheme
+                                                  ? Icons.dark_mode_outlined
+                                                  : Icons.light_mode_outlined,
                                               key: ValueKey(_isDarkTheme),
-                                              color: _isDarkTheme 
-                                                  ? RiveAppTheme.primaryRed
-                                                  : RiveAppTheme.secondaryYellow,
+                                              color:
+                                                  _isDarkTheme
+                                                      ? RiveAppTheme.primaryRed
+                                                      : RiveAppTheme
+                                                          .secondaryYellow,
                                               size: 20,
                                             ),
                                           ),
@@ -418,7 +427,9 @@ class _SideMenuState extends State<SideMenu> with TickerProviderStateMixin {
                                     const SizedBox(width: 14),
                                     Expanded(
                                       child: Text(
-                                        _isDarkTheme ? "Dark Theme" : "Light Theme",
+                                        _isDarkTheme
+                                            ? "Dark Theme"
+                                            : "Light Theme",
                                         style: TextStyle(
                                           color: Colors.white.withOpacity(0.9),
                                           fontSize: 17,
@@ -434,7 +445,9 @@ class _SideMenuState extends State<SideMenu> with TickerProviderStateMixin {
                                           width: 50,
                                           height: 28,
                                           decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(14),
+                                            borderRadius: BorderRadius.circular(
+                                              14,
+                                            ),
                                             color: Color.lerp(
                                               Colors.grey[700],
                                               RiveAppTheme.freshGreen,
@@ -444,7 +457,9 @@ class _SideMenuState extends State<SideMenu> with TickerProviderStateMixin {
                                           child: Stack(
                                             children: [
                                               AnimatedPositioned(
-                                                duration: const Duration(milliseconds: 300),
+                                                duration: const Duration(
+                                                  milliseconds: 300,
+                                                ),
                                                 curve: Curves.elasticOut,
                                                 left: _isDarkTheme ? 24 : 2,
                                                 top: 2,
@@ -456,9 +471,13 @@ class _SideMenuState extends State<SideMenu> with TickerProviderStateMixin {
                                                     color: Colors.white,
                                                     boxShadow: [
                                                       BoxShadow(
-                                                        color: Colors.black.withOpacity(0.2),
+                                                        color: Colors.black
+                                                            .withOpacity(0.2),
                                                         blurRadius: 4,
-                                                        offset: const Offset(0, 2),
+                                                        offset: const Offset(
+                                                          0,
+                                                          2,
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
