@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="512" cy="512" r="480" fill="#FF6B35" stroke="#FFFFFF" stroke-width="8"/>
+  
+  <!-- Restaurant Plate -->
+  <circle cx="512" cy="520" r="280" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="4"/>
+  <circle cx="512" cy="520" r="260" fill="none" stroke="#F0F0F0" stroke-width="2"/>
+  
+  <!-- Fork (Left) -->
+  <rect x="320" y="300" width="16" height="200" fill="#2C3E50" rx="8"/>
+  <rect x="308" y="300" width="12" height="50" fill="#2C3E50" rx="6"/>
+  <rect x="324" y="300" width="12" height="50" fill="#2C3E50" rx="6"/>
+  <rect x="340" y="300" width="12" height="40" fill="#2C3E50" rx="6"/>
+  
+  <!-- Knife (Right) -->
+  <rect x="688" y="300" width="16" height="200" fill="#2C3E50" rx="8"/>
+  <polygon points="688,300 670,290 670,320 688,310" fill="#95A5A6"/>
+  
+  <!-- Main Dish -->
+  <ellipse cx="512" cy="500" rx="100" ry="50" fill="#8B4513"/>
+  <ellipse cx="512" cy="495" rx="90" ry="40" fill="#D2691E"/>
+  
+  <!-- Side Vegetables -->
+  <circle cx="430" cy="550" r="30" fill="#27AE60"/>
+  <circle cx="594" cy="550" r="30" fill="#E74C3C"/>
+  <circle cx="470" cy="460" r="20" fill="#F39C12"/>
+  <circle cx="554" cy="460" r="20" fill="#E74C3C"/>
+  
+  <!-- Garnish -->
+  <path d="M480,440 Q495,425 510,440 Q525,425 540,440" stroke="#27AE60" stroke-width="4" fill="none"/>
+  
+  <!-- Restaurant Name -->
+  <text x="512" y="750" font-family="Arial, sans-serif" font-size="72" font-weight="bold" text-anchor="middle" fill="#FFFFFF">RESTAURANT</text>
+</svg>

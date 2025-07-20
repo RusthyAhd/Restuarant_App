@@ -1,6 +1,6 @@
 {
-    "name": "flutter_samples",
-    "short_name": "flutter_samples",
+    "name": "restuarant_app",
+    "short_name": "restuarant_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_samples/ui/models/courses.dart';
+import '../models/courses.dart';
 
 class VCard extends StatefulWidget {
   const VCard({Key? key, required this.course}) : super(key: key);
@@ -22,27 +22,27 @@ class _VCardState extends State<VCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(maxWidth: 260, maxHeight: 310),
-      padding: const EdgeInsets.all(30),
+      constraints: const BoxConstraints(maxWidth: 280, maxHeight: 320),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [widget.course.color, widget.course.color.withOpacity(0.5)],
+          colors: [widget.course.color, widget.course.color.withOpacity(0.6)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         boxShadow: [
           BoxShadow(
             color: widget.course.color.withOpacity(0.3),
-            blurRadius: 8,
-            offset: const Offset(0, 12),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
           ),
           BoxShadow(
-            color: widget.course.color.withOpacity(0.3),
-            blurRadius: 2,
-            offset: const Offset(0, 1),
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
           ),
         ],
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(24),
       ),
       child: Stack(
         clipBehavior: Clip.none,
@@ -51,51 +51,70 @@ class _VCardState extends State<VCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                constraints: const BoxConstraints(maxWidth: 170),
+                constraints: const BoxConstraints(maxWidth: 180),
                 child: Text(
                   widget.course.title,
                   style: const TextStyle(
-                    fontSize: 24,
+                    fontSize: 22,
                     fontFamily: "Poppins",
+                    fontWeight: FontWeight.w700,
                     color: Colors.white,
+                    height: 1.2,
                   ),
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 12),
               Text(
                 widget.course.subtitle!,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
-                softWrap: false,
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.7),
-                  fontSize: 15,
+                  color: Colors.white.withOpacity(0.85),
+                  fontSize: 14,
+                  fontFamily: "Inter",
+                  height: 1.4,
                 ),
               ),
-              const SizedBox(height: 8),
-              Text(
-                widget.course.caption.toUpperCase(),
-                style: const TextStyle(
-                  fontSize: 13,
-                  fontFamily: "Inter",
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
+              const SizedBox(height: 16),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  widget.course.caption.toUpperCase(),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontFamily: "Inter",
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                    letterSpacing: 0.5,
+                  ),
                 ),
               ),
               const Spacer(),
-              Wrap(
-                spacing: 8,
-                children: List.generate(
-                  avatars.length,
-                  (index) => Transform.translate(
-                    offset: Offset(index * -20, 0),
-                    child: ClipRRect(
-                      key: Key(index.toString()),
-                      borderRadius: BorderRadius.circular(22),
-                      child: Image.asset(
-                        "assets/samples/ui/rive_app/images/avatars/avatar_${avatars[index]}.jpg",
-                        width: 44,
-                        height: 44,
+              Container(
+                height: 44,
+                child: Stack(
+                  children: List.generate(
+                    avatars.length,
+                    (index) => Positioned(
+                      left: index * 24.0,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(22),
+                          border: Border.all(color: Colors.white, width: 2),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.asset(
+                            "assets/samples/ui/rive_app/images/avatars/avatar_${avatars[index]}.jpg",
+                            width: 40,
+                            height: 40,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -104,9 +123,24 @@ class _VCardState extends State<VCard> {
             ],
           ),
           Positioned(
-            right: -10,
-            top: -10,
-            child: Image.asset(widget.course.image),
+            right: -8,
+            top: -8,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.asset(widget.course.image, fit: BoxFit.cover),
+              ),
+            ),
           ),
         ],
       ),

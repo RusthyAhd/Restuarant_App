@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurant App Icon Generator</title>
+</head>
+<body>
+    <canvas id="iconCanvas" width="1024" height="1024" style="border: 1px solid #ccc;"></canvas>
+    <br><br>
+    <button onclick="downloadIcon()">Download PNG Icon</button>
+
+    <script>
+        const canvas = document.getElementById('iconCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Create gradient background
+        const gradient = ctx.createLinearGradient(0, 0, 1024, 1024);
+        gradient.addColorStop(0, '#FF6B35');
+        gradient.addColorStop(1, '#F7931E');
+
+        // Background circle
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(512, 512, 480, 0, 2 * Math.PI);
+        ctx.fill();
+
+        // White border
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 8;
+        ctx.stroke();
+
+        // Plate gradient
+        const plateGradient = ctx.createLinearGradient(212, 220, 812, 820);
+        plateGradient.addColorStop(0, '#ffffff');
+        plateGradient.addColorStop(1, '#f8f8f8');
+
+        // Main plate
+        ctx.fillStyle = plateGradient;
+        ctx.beginPath();
+        ctx.arc(512, 520, 300, 0, 2 * Math.PI);
+        ctx.fill();
+
+        // Plate border
+        ctx.strokeStyle = '#ddd';
+        ctx.lineWidth = 6;
+        ctx.stroke();
+
+        // Inner plate ring
+        ctx.strokeStyle = '#eee';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(512, 520, 280, 0, 2 * Math.PI);
+        ctx.stroke();
+
+        // Fork (left side)
+        ctx.fillStyle = '#4a4a4a';
+        // Fork handle
+        ctx.fillRect(350, 380, 12, 180);
+        // Fork prongs
+        ctx.fillRect(342, 380, 8, 40);
+        ctx.fillRect(362, 380, 8, 40);
+        ctx.fillRect(334, 380, 8, 30);
+        ctx.fillRect(370, 380, 8, 30);
+
+        // Knife (right side)
+        ctx.fillStyle = '#4a4a4a';
+        // Knife handle
+        ctx.fillRect(660, 380, 12, 180);
+        
+        // Knife blade
+        ctx.fillStyle = '#c0c0c0';
+        ctx.beginPath();
+        ctx.moveTo(660, 380);
+        ctx.lineTo(645, 375);
+        ctx.lineTo(645, 395);
+        ctx.lineTo(660, 400);
+        ctx.closePath();
+        ctx.fill();
+
+        // Main dish (center)
+        ctx.fillStyle = '#8B4513';
+        ctx.beginPath();
+        ctx.ellipse(512, 500, 80, 40, 0, 0, 2 * Math.PI);
+        ctx.fill();
+
+        ctx.fillStyle = '#D2691E';
+        ctx.beginPath();
+        ctx.ellipse(512, 495, 75, 35, 0, 0, 2 * Math.PI);
+        ctx.fill();
+
+        // Side vegetables
+        ctx.fillStyle = '#228B22'; // Green
+        ctx.beginPath();
+        ctx.arc(450, 540, 25, 0, 2 * Math.PI);
+        ctx.fill();
+
+        ctx.fillStyle = '#FF6347'; // Tomato red
+        ctx.beginPath();
+        ctx.arc(574, 540, 25, 0, 2 * Math.PI);
+        ctx.fill();
+
+        // Small garnish
+        ctx.fillStyle = '#FFD700'; // Gold
+        ctx.beginPath();
+        ctx.arc(480, 470, 15, 0, 2 * Math.PI);
+        ctx.fill();
+
+        ctx.fillStyle = '#FF6347'; // Red
+        ctx.beginPath();
+        ctx.arc(544, 470, 15, 0, 2 * Math.PI);
+        ctx.fill();
+
+        // Herb garnish
+        ctx.strokeStyle = '#228B22';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(490, 450);
+        ctx.quadraticCurveTo(500, 440, 510, 450);
+        ctx.quadraticCurveTo(520, 440, 530, 450);
+        ctx.stroke();
+
+        function downloadIcon() {
+            const link = document.createElement('a');
+            link.download = 'app_icon.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+    </script>
+</body>
+</html>

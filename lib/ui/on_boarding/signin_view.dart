@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart' hide LinearGradient, Image;
-import 'package:flutter_samples/ui/theme.dart';
-import 'package:flutter_samples/ui/assets.dart' as app_assets;
+import '../theme.dart';
+import '../assets.dart' as app_assets;
 
 class SignInView extends StatefulWidget {
   const SignInView({Key? key, this.closeModal}) : super(key: key);
@@ -79,6 +79,38 @@ class _SignInViewState extends State<SignInView> {
     }
   }
 
+  Widget _buildSocialLoginButton(String imagePath, String platform) {
+    return GestureDetector(
+      onTap: () {
+        // Add social login functionality here
+        print("Sign in with $platform");
+      },
+      child: Container(
+        width: 60,
+        height: 60,
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.black.withOpacity(0.1), width: 1),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Image.asset(
+          imagePath,
+          width: 36,
+          height: 36,
+          fit: BoxFit.contain,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,7 +164,7 @@ class _SignInViewState extends State<SignInView> {
                         ),
                         const SizedBox(height: 24),
                         const Text(
-                          "Access to 240+ hours of content. Learn design and code, by building real apps with React and Swift.",
+                          "Welcome to our restaurant! Sign in to access exclusive menu items, special offers, and seamless ordering experience.",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: "Inter",
@@ -238,7 +270,7 @@ class _SignInViewState extends State<SignInView> {
                           ),
                         ),
                         const Text(
-                          "Sign up with Email, Apple or Google",
+                          "Or sign in with",
                           style: TextStyle(
                             color: CupertinoColors.secondaryLabel,
                             fontFamily: "Inter",
@@ -247,11 +279,20 @@ class _SignInViewState extends State<SignInView> {
                         ),
                         const SizedBox(height: 24),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Image.asset(app_assets.logoEmail),
-                            Image.asset(app_assets.logoApple),
-                            Image.asset(app_assets.logoGoogle),
+                            _buildSocialLoginButton(
+                              app_assets.logoEmail,
+                              "Email",
+                            ),
+                            _buildSocialLoginButton(
+                              app_assets.logoApple,
+                              "Apple",
+                            ),
+                            _buildSocialLoginButton(
+                              app_assets.logoGoogle,
+                              "Google",
+                            ),
                           ],
                         ),
                       ],
@@ -348,10 +389,18 @@ InputDecoration authInputStyle(String iconName) {
       borderRadius: BorderRadius.circular(10),
       borderSide: BorderSide(color: Colors.black.withOpacity(0.1)),
     ),
-    contentPadding: const EdgeInsets.all(15),
-    prefixIcon: Padding(
-      padding: const EdgeInsets.only(left: 4),
-      child: Image.asset("assets/samples/ui/rive_app/images/$iconName.png"),
+    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+    prefixIcon: Container(
+      width: 24,
+      height: 24,
+      margin: const EdgeInsets.only(left: 12, right: 8),
+      child: Image.asset(
+        "assets/samples/ui/rive_app/images/$iconName.png",
+        width: 20,
+        height: 20,
+        fit: BoxFit.contain,
+      ),
     ),
+    prefixIconConstraints: const BoxConstraints(minWidth: 44, minHeight: 44),
   );
 }

@@ -1,0 +1,48 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="background" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B35;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F7931E;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="plate" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f8f8f8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="512" cy="512" r="480" fill="url(#background)" stroke="#fff" stroke-width="8"/>
+  
+  <!-- Plate -->
+  <circle cx="512" cy="520" r="300" fill="url(#plate)" stroke="#ddd" stroke-width="6"/>
+  <circle cx="512" cy="520" r="280" fill="none" stroke="#eee" stroke-width="2"/>
+  
+  <!-- Fork (left) -->
+  <g transform="translate(350,380)">
+    <rect x="0" y="0" width="12" height="180" fill="#4a4a4a" rx="6"/>
+    <rect x="-8" y="0" width="8" height="40" fill="#4a4a4a" rx="4"/>
+    <rect x="12" y="0" width="8" height="40" fill="#4a4a4a" rx="4"/>
+    <rect x="-16" y="0" width="8" height="30" fill="#4a4a4a" rx="4"/>
+    <rect x="20" y="0" width="8" height="30" fill="#4a4a4a" rx="4"/>
+  </g>
+  
+  <!-- Knife (right) -->
+  <g transform="translate(660,380)">
+    <rect x="0" y="0" width="12" height="180" fill="#4a4a4a" rx="6"/>
+    <polygon points="0,0 -15,-5 -15,15 0,20" fill="#c0c0c0"/>
+  </g>
+  
+  <!-- Food items on plate -->
+  <!-- Main dish -->
+  <ellipse cx="512" cy="500" rx="80" ry="40" fill="#8B4513"/>
+  <ellipse cx="512" cy="495" rx="75" ry="35" fill="#D2691E"/>
+  
+  <!-- Side items -->
+  <circle cx="450" cy="540" r="25" fill="#228B22"/>
+  <circle cx="574" cy="540" r="25" fill="#FF6347"/>
+  <circle cx="480" cy="470" r="15" fill="#FFD700"/>
+  <circle cx="544" cy="470" r="15" fill="#FF6347"/>
+  
+  <!-- Garnish -->
+  <path d="M490,450 Q500,440 510,450 Q520,440 530,450" stroke="#228B22" stroke-width="3" fill="none"/>
+</svg>

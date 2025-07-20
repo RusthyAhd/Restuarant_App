@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rive/rive.dart';
-import 'package:flutter_samples/ui/models/menu_item.dart';
-import 'package:flutter_samples/ui/assets.dart' as app_assets;
+import '../models/menu_item.dart';
+import '../assets.dart' as app_assets;
 import '../theme.dart';
 
 class MenuRow extends StatelessWidget {
@@ -53,32 +53,45 @@ class MenuRow extends StatelessWidget {
         ),
 
         CupertinoButton(
-          padding: const EdgeInsets.all(12),
-          pressedOpacity: 1, // disable touch effect
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          pressedOpacity: 0.8, // Subtle touch effect
           onPressed: onMenuPressed,
           child: Row(
             children: [
-              SizedBox(
-                width: 32,
-                height: 32,
-                child: Opacity(
-                  opacity: 0.6,
-                  child: RiveAnimation.asset(
-                    app_assets.iconsRiv,
-                    stateMachines: [menu.riveIcon.stateMachine],
-                    artboard: menu.riveIcon.artboard,
-                    onInit: _onMenuIconInit,
-                  ),
+              Container(
+                width: 36,
+                height: 36,
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color:
+                      selectedMenu == menu.title
+                          ? Colors.white.withOpacity(0.2)
+                          : Colors.transparent,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: RiveAnimation.asset(
+                  app_assets.iconsRiv,
+                  stateMachines: [menu.riveIcon.stateMachine],
+                  artboard: menu.riveIcon.artboard,
+                  onInit: _onMenuIconInit,
                 ),
               ),
-              const SizedBox(width: 14),
-              Text(
-                menu.title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontFamily: "Inter",
-                  fontWeight: FontWeight.w600,
-                  fontSize: 17,
+              const SizedBox(width: 16),
+              Expanded(
+                child: Text(
+                  menu.title,
+                  style: TextStyle(
+                    color:
+                        selectedMenu == menu.title
+                            ? Colors.white
+                            : Colors.white.withOpacity(0.8),
+                    fontFamily: "Inter",
+                    fontWeight:
+                        selectedMenu == menu.title
+                            ? FontWeight.w700
+                            : FontWeight.w500,
+                    fontSize: 16,
+                  ),
                 ),
               ),
             ],

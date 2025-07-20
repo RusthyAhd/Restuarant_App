@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_samples/ui/components/hcard.dart';
-import 'package:flutter_samples/ui/components/vcard.dart';
-import 'package:flutter_samples/ui/components/glass_components.dart';
-import 'package:flutter_samples/ui/components/restaurant_icons.dart';
-import 'package:flutter_samples/ui/models/courses.dart';
-import 'package:flutter_samples/ui/theme.dart';
+import '../components/hcard.dart';
+import '../components/vcard.dart';
+import '../components/glass_components.dart';
+import '../components/restaurant_icons.dart';
+import '../models/courses.dart';
+import '../theme.dart';
 import 'dart:ui';
 
 class HomeTabView extends StatefulWidget {
@@ -56,9 +56,9 @@ class _HomeTabViewState extends State<HomeTabView> {
                                   boxShadow: [
                                     BoxShadow(
                                       color: RiveAppTheme.secondaryYellow
-                                          .withOpacity(0.3),
-                                      blurRadius: 15,
-                                      spreadRadius: 3,
+                                          .withOpacity(0.2), // Reduced opacity
+                                      blurRadius: 10, // Reduced blur
+                                      spreadRadius: 2, // Reduced spread
                                     ),
                                   ],
                                 ),

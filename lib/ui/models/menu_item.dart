@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_samples/ui/models/tab_item.dart';
+import 'tab_item.dart';
 
 class MenuItemModel {
   MenuItemModel({this.id, this.title = "", required this.riveIcon});
@@ -9,10 +9,6 @@ class MenuItemModel {
   TabItem riveIcon;
 
   static List<MenuItemModel> menuItems = [
-    MenuItemModel(
-      title: "Home",
-      riveIcon: TabItem(stateMachine: "HOME_interactivity", artboard: "HOME"),
-    ),
     MenuItemModel(
       title: "Menu",
       riveIcon: TabItem(
