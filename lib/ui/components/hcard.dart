@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_samples/ui/models/courses.dart';
+import '../models/courses.dart';
 
 class HCard extends StatelessWidget {
   const HCard({Key? key, required this.section}) : super(key: key);
@@ -9,11 +9,23 @@ class HCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(maxHeight: 110),
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      constraints: const BoxConstraints(maxHeight: 120),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: section.color,
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: section.color.withOpacity(0.3),
+            blurRadius: 12,
+            offset: const Offset(0, 6),
+          ),
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Row(
         children: [
@@ -25,28 +37,49 @@ class HCard extends StatelessWidget {
                 Text(
                   section.title,
                   style: const TextStyle(
-                    fontSize: 24,
+                    fontSize: 20,
                     fontFamily: "Poppins",
+                    fontWeight: FontWeight.w700,
                     color: Colors.white,
+                    height: 1.2,
                   ),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   section.caption,
-                  style: const TextStyle(
-                    fontSize: 17,
+                  style: TextStyle(
+                    fontSize: 14,
                     fontFamily: "Inter",
-                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white.withOpacity(0.9),
+                    height: 1.3,
                   ),
                 ),
               ],
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.all(20),
-            child: VerticalDivider(thickness: 0.8, width: 0),
+          Container(
+            width: 1,
+            height: 40,
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(0.5),
+            ),
           ),
-          Image.asset(section.image),
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Image.asset(
+              section.image,
+              width: 32,
+              height: 32,
+              fit: BoxFit.contain,
+            ),
+          ),
         ],
       ),
     );

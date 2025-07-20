@@ -14,10 +14,12 @@ class RestaurantIcons {
   static const IconData seafood = Icons.phishing;
   static const IconData vegetarian = Icons.local_florist;
   static const IconData drinks = Icons.local_bar;
+  static const IconData drink = Icons.local_bar;
   static const IconData iceCream = Icons.icecream;
   static const IconData sandwich = Icons.lunch_dining;
   static const IconData soup = Icons.soup_kitchen;
   static const IconData bread = Icons.bakery_dining;
+  static const IconData fish = Icons.set_meal;
 
   // Restaurant Service Icons
   static const IconData delivery = Icons.delivery_dining;

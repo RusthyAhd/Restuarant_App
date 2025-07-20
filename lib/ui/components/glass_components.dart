@@ -83,13 +83,30 @@ class GlassCard extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(borderRadius),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+          filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
           child: Container(
-            padding: padding,
-            decoration: RiveAppTheme.getCardDecoration(
-              context,
-              borderRadius: borderRadius,
-              isElevated: isElevated,
+            padding: padding ?? const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              gradient: RiveAppTheme.getGlassGradient(context),
+              borderRadius: BorderRadius.circular(borderRadius),
+              border: Border.all(color: RiveAppTheme.glassBorder, width: 1),
+              boxShadow:
+                  isElevated
+                      ? [
+                        BoxShadow(
+                          color: RiveAppTheme.getShadow(
+                            context,
+                          ).withOpacity(0.1),
+                          blurRadius: 20,
+                          offset: const Offset(0, 8),
+                        ),
+                        BoxShadow(
+                          color: RiveAppTheme.glassHighlight,
+                          blurRadius: 1,
+                          offset: const Offset(0, 1),
+                        ),
+                      ]
+                      : null,
             ),
             child: child,
           ),

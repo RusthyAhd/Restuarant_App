@@ -4,48 +4,51 @@ import 'package:flutter/services.dart';
 import 'package:rive/rive.dart' hide LinearGradient;
 import 'dart:math' as math;
 import 'dart:ui';
-import 'package:flutter_samples/ui/navigation/custom_tab_bar.dart';
-import 'package:flutter_samples/ui/navigation/home_tab_view.dart';
-import 'package:flutter_samples/ui/on_boarding/onboarding_view.dart';
-import 'package:flutter_samples/ui/navigation/side_menu.dart';
-import 'package:flutter_samples/ui/theme.dart';
-import 'package:flutter_samples/ui/components/restaurant_icons.dart';
-import 'package:flutter_samples/ui/assets.dart' as app_assets;
+import 'navigation/custom_tab_bar.dart';
+import 'navigation/home_tab_view.dart';
+import 'on_boarding/onboarding_view.dart';
+import 'navigation/side_menu.dart';
+import 'theme.dart';
+import 'components/restaurant_icons.dart';
+import 'assets.dart' as app_assets;
 
-// Custom painter for restaurant-themed background
+// Optimized Custom painter for restaurant-themed background
 class RestaurantBackgroundPainter extends CustomPainter {
+  static Paint? _cachedPaint;
+  static Size? _cachedSize;
+
   @override
   void paint(Canvas canvas, Size size) {
-    final paint =
-        Paint()
-          ..style = PaintingStyle.fill
-          ..shader = LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              RiveAppTheme.secondaryYellow.withOpacity(0.05),
-              RiveAppTheme.accentOrange.withOpacity(0.03),
-              RiveAppTheme.warmBrown.withOpacity(0.02),
-            ],
-          ).createShader(Rect.fromLTWH(0, 0, size.width, size.height));
+    // Only recreate paint if size changed
+    if (_cachedPaint == null || _cachedSize != size) {
+      _cachedPaint =
+          Paint()
+            ..style = PaintingStyle.fill
+            ..shader = LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                RiveAppTheme.secondaryYellow.withOpacity(
+                  0.03,
+                ), // Reduced opacity
+                RiveAppTheme.accentOrange.withOpacity(0.02),
+                RiveAppTheme.warmBrown.withOpacity(0.01),
+              ],
+            ).createShader(Rect.fromLTWH(0, 0, size.width, size.height));
+      _cachedSize = size;
+    }
 
-    // Draw subtle geometric shapes
+    // Draw fewer shapes for better performance
     canvas.drawCircle(
       Offset(size.width * 0.1, size.height * 0.2),
-      size.width * 0.3,
-      paint,
+      size.width * 0.25, // Reduced size
+      _cachedPaint!,
     );
 
     canvas.drawCircle(
       Offset(size.width * 0.9, size.height * 0.7),
-      size.width * 0.25,
-      paint,
-    );
-
-    canvas.drawCircle(
-      Offset(size.width * 0.7, size.height * 0.1),
-      size.width * 0.2,
-      paint,
+      size.width * 0.2, // Reduced size
+      _cachedPaint!,
     );
   }
 
@@ -218,23 +221,28 @@ class _RiveAppHomeState extends State<RiveAppHome>
 
   @override
   void initState() {
+    // Reduced animation duration for faster loading
     _animationController = AnimationController(
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 150), // Reduced from 200
       upperBound: 1,
       vsync: this,
     );
     _onBoardingAnimController = AnimationController(
-      duration: const Duration(milliseconds: 350),
+      duration: const Duration(milliseconds: 250), // Reduced from 350
       upperBound: 1,
       vsync: this,
     );
 
+    // Use more efficient curve for better performance
     _sidebarAnim = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _animationController!, curve: Curves.linear),
+      CurvedAnimation(parent: _animationController!, curve: Curves.easeOut),
     );
 
     _onBoardingAnim = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _onBoardingAnimController!, curve: Curves.linear),
+      CurvedAnimation(
+        parent: _onBoardingAnimController!,
+        curve: Curves.easeOut,
+      ),
     );
 
     _tabBody = _screens.first;

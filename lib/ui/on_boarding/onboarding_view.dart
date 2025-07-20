@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart' hide Image;
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:rive/rive.dart' hide Image;
-import 'package:flutter_samples/ui/theme.dart';
-import 'package:flutter_samples/ui/on_boarding/signin_view.dart';
-import 'package:flutter_samples/ui/assets.dart' as app_assets;
+import '../theme.dart';
+import 'signin_view.dart';
+import '../assets.dart' as app_assets;
 
 class OnBoardingView extends StatefulWidget {
   const OnBoardingView({Key? key, this.closeModal}) : super(key: key);

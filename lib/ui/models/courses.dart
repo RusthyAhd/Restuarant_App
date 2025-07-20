@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_samples/ui/assets.dart' as app_assets;
+import '../assets.dart' as app_assets;
 
 class CourseModel {
   CourseModel({

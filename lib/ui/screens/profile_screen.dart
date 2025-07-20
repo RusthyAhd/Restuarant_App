@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_samples/ui/theme.dart';
-import 'package:flutter_samples/ui/components/glass_components.dart';
-import 'package:flutter_samples/ui/components/restaurant_icons.dart';
+import '../theme.dart';
+import '../components/glass_components.dart';
+import '../components/restaurant_icons.dart';
 import 'dart:io';
 import 'dart:ui';
 

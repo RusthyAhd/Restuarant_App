@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
+import 'dart:math' as math;
 
 class RiveAppTheme {
   // Restaurant Glass Theme Colors - iOS 26 Inspired
@@ -86,7 +87,9 @@ class RiveAppTheme {
         : const Color(0xFF757575); // Grey text in light mode
   }
 
-  // Glass Effect Decorations
+  // Optimized Glass Effect Decorations with caching
+  static final Map<String, BoxDecoration> _decorationCache = {};
+
   static BoxDecoration getGlassDecoration(
     BuildContext context, {
     double borderRadius = 16,
@@ -95,7 +98,10 @@ class RiveAppTheme {
     Border? border,
   }) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    return BoxDecoration(
+    final cacheKey =
+        'glass_${isDark}_${borderRadius}_${blur}_${color?.value}_${border?.hashCode}';
+
+    return _decorationCache[cacheKey] ??= BoxDecoration(
       color: color ?? (isDark ? glassWhite : glassWhite),
       borderRadius: BorderRadius.circular(borderRadius),
       border:
@@ -104,7 +110,7 @@ class RiveAppTheme {
       boxShadow: [
         BoxShadow(
           color: getShadow(context),
-          blurRadius: blur,
+          blurRadius: math.min(blur, 15), // Limit blur radius for performance
           offset: const Offset(0, 4),
         ),
       ],
@@ -117,7 +123,9 @@ class RiveAppTheme {
     bool isElevated = true,
   }) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    return BoxDecoration(
+    final cacheKey = 'card_${isDark}_${borderRadius}_${isElevated}';
+
+    return _decorationCache[cacheKey] ??= BoxDecoration(
       color: isDark ? glassDark.withOpacity(0.7) : glassLight.withOpacity(0.9),
       borderRadius: BorderRadius.circular(borderRadius),
       border: Border.all(
@@ -129,8 +137,8 @@ class RiveAppTheme {
               ? [
                 BoxShadow(
                   color: getShadow(context),
-                  blurRadius: 20,
-                  offset: const Offset(0, 10),
+                  blurRadius: 15, // Reduced from 20
+                  offset: const Offset(0, 8), // Reduced from 10
                 ),
                 BoxShadow(
                   color:
@@ -143,10 +151,14 @@ class RiveAppTheme {
     );
   }
 
-  // Gradient Decorations
+  // Gradient Decorations with caching
+  static final Map<String, LinearGradient> _gradientCache = {};
+
   static LinearGradient getBackgroundGradient(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    return LinearGradient(
+    final cacheKey = 'background_$isDark';
+
+    return _gradientCache[cacheKey] ??= LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
       colors:
@@ -167,7 +179,9 @@ class RiveAppTheme {
 
   static LinearGradient getGlassGradient(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    return LinearGradient(
+    final cacheKey = 'glass_$isDark';
+
+    return _gradientCache[cacheKey] ??= LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
       colors:
@@ -186,7 +200,7 @@ class RiveAppTheme {
   }
 
   static LinearGradient getButtonGradient() {
-    return const LinearGradient(
+    return _gradientCache['button'] ??= const LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
       colors: [Color(0xFFFFC107), Color(0xFFFF8F00), Color(0xFFFF5722)],
